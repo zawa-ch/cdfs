@@ -6,17 +6,33 @@
         {
             "label": "build cdfs",
             "type": "shell",
+            "group": "build",
             "command": "cmake",
             "args": [
                 "--build",
                 "build",
                 "--target",
                 "cdfs"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
             ]
         },
         {
             "label": "build cdfs-example-uint128",
             "type": "shell",
+            "group": "build",
+            "dependsOn": [
+                "build cdfs"
+            ],
             "command": "cmake",
             "args": [
                 "--build",
@@ -26,6 +42,42 @@
                 "--config",
                 "Debug"
             ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "build cdfs-example-crc32",
+            "type": "shell",
+            "group": "build",
+            "dependsOn": [
+                "build cdfs"
+            ],
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--target",
+                "cdfs-example-crc32",
+                "--config",
+                "Debug"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
             "problemMatcher": [
                 "$gcc"
             ]
