@@ -196,7 +196,6 @@ namespace zawa_ch::CDFS
 		[[nodiscard]] constexpr bool operator>(const UInt128& other) const noexcept { return Compare(other) > 0;}
 		[[nodiscard]] constexpr bool operator<=(const UInt128& other) const noexcept { return Compare(other) <= 0;}
 
-		constexpr explicit operator uintmax_t() const noexcept { return _data[0]; }
 		constexpr explicit operator uint64_t() const noexcept { return uint64_t(_data[0]); }
 		constexpr explicit operator uint32_t() const noexcept { return uint32_t(_data[0]); }
 		constexpr explicit operator uint16_t() const noexcept { return uint16_t(_data[0]); }
