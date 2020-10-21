@@ -249,7 +249,7 @@ namespace zawa_ch::CDFS
 		CDFSFrameTypes frametype;
 		std::array<uint8_t, 4> _res1;
 		UInt128 current;
-		std::array<uint8_t, 32> hash;
+		std::array<char, 32> label;
 		std::array<uint8_t, 188> _res2;
 		uint32_t checksum;
 	};
