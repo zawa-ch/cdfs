@@ -1,5 +1,6 @@
 
 add_library(cdfs
+  builder.cpp
   cdfs.cpp
   checksum.cpp
 )
