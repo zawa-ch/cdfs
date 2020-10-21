@@ -204,7 +204,7 @@ namespace zawa_ch::CDFS
 
 	enum class CDFSFrameTypes : uint32_t
 	{
-		HEAD = 0x48454144,
+		HEAD = 0x43444653,
 		FINF = 0x46494E46,
 		DATA = 0x44415444,
 		CONT = 0x434F4E54,

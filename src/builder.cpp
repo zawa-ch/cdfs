@@ -7,7 +7,7 @@ CDFSBuilder::CDFSBuilder(const std::string& label) : label(label) {}
 void CDFSBuilder::WriteHEADFrame(std::ostream& stream) { WriteHEADFrame(stream, frameindex + 1, datasize); }
 void CDFSBuilder::WriteHEADFrame(std::ostream& stream, const UInt128& framecount, const UInt128& datasize)
 {
-	CDFSHEADFrame frame;
+	CDFSHEADFrame frame = CDFSHEADFrame();
 	frame.seq = uint64_t(frameindex);
 	frame.frametype = CDFSFrameTypes::HEAD;
 	frame.data_formatver = CDFS::FormatVersion;
@@ -26,7 +26,7 @@ void CDFSBuilder::WriteHEADFrame(std::ostream& stream, const UInt128& framecount
 }
 void CDFSBuilder::WriteFINFFrame(std::ostream& stream)
 {
-	CDFSFINFFrame frame;
+	CDFSFINFFrame frame = CDFSFINFFrame();
 	frame.seq = uint64_t(frameindex);
 	frame.frametype = CDFSFrameTypes::FINF;
 	frame.data_count = frameindex + 1;
@@ -39,7 +39,7 @@ void CDFSBuilder::WriteFINFFrame(std::ostream& stream)
 }
 void CDFSBuilder::WriteDATAFrame(std::ostream& stream, const ContainsType& data, const size_t& size)
 {
-	CDFSFrame frame;
+	CDFSFrame frame = CDFSFrame();
 	frame.seq = uint64_t(frameindex);
 	frame.frametype = CDFSFrameTypes::DATA;
 	frame.data = data;
@@ -50,7 +50,7 @@ void CDFSBuilder::WriteDATAFrame(std::ostream& stream, const ContainsType& data,
 }
 void CDFSBuilder::WriteCONTFrame(std::ostream& stream)
 {
-	CDFSCONTFrame frame;
+	CDFSCONTFrame frame = CDFSCONTFrame();
 	frame.seq = uint64_t(frameindex);
 	frame.frametype = CDFSFrameTypes::CONT;
 	frame.data_current = frameindex;

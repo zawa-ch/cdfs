@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/build/examples/cdfs-example-uint128",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/build/examples",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -31,7 +31,7 @@
             "program": "${workspaceFolder}/build/examples/cdfs-example-crc32",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/build/examples",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -43,6 +43,26 @@
                 }
             ],
             "preLaunchTask": "build cdfs-example-crc32"
+        },
+        {
+            "name": "launch cdfs-example-cdfsbuilder",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/examples/cdfs-example-cdfsbuilder",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/examples",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb の再フォーマットを有効にする",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build cdfs-example-cdfsbuilder"
         }
     ]
 }
