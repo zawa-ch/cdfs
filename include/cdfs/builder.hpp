@@ -20,7 +20,7 @@ namespace zawa_ch::CDFS
 		void WriteHEADFrame(std::ostream& stream);
 		void WriteHEADFrame(std::ostream& stream, const UInt128& framecount, const UInt128& datasize);
 		void WriteFINFFrame(std::ostream& stream);
-		void WriteDATAFrame(std::ostream& stream, const ContainsType& data);
+		void WriteDATAFrame(std::ostream& stream, const ContainsType& data, const size_t& size = 240U);
 		void WriteCONTFrame(std::ostream& stream);
 
 		static void WriteToStream(std::ostream& stream, const CDFSFrame& frame);

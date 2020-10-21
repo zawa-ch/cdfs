@@ -37,7 +37,7 @@ void CDFSBuilder::WriteFINFFrame(std::ostream& stream)
 	WriteToStream(stream, CDFS::CastToFrame(frame));
 	++frameindex;
 }
-void CDFSBuilder::WriteDATAFrame(std::ostream& stream, const ContainsType& data)
+void CDFSBuilder::WriteDATAFrame(std::ostream& stream, const ContainsType& data, const size_t& size)
 {
 	CDFSFrame frame;
 	frame.seq = uint64_t(frameindex);
@@ -46,7 +46,7 @@ void CDFSBuilder::WriteDATAFrame(std::ostream& stream, const ContainsType& data)
 	SetCRC(frame);
 	WriteToStream(stream, frame);
 	++frameindex;
-	datasize += 240U;
+	datasize += size;
 }
 void CDFSBuilder::WriteCONTFrame(std::ostream& stream)
 {
