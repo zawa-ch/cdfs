@@ -229,10 +229,10 @@ namespace zawa_ch::CDFS
 	{
 		uint64_t seq;
 		CDFSFrameTypes frametype;
-		uint32_t formatver;
-		UInt128 count;
-		std::array<char, 32> label;
-		UInt128 size;
+		uint32_t data_formatver;
+		UInt128 data_count;
+		std::array<char, 32> data_label;
+		UInt128 data_size;
 		std::array<uint8_t, 172> _res;
 		uint32_t checksum;
 	};
@@ -242,9 +242,9 @@ namespace zawa_ch::CDFS
 		uint64_t seq;
 		CDFSFrameTypes frametype;
 		std::array<uint8_t, 4> _res1;
-		UInt128 count;
-		std::array<uint8_t, 32> hash;
-		UInt128 size;
+		UInt128 data_count;
+		std::array<uint8_t, 32> data_hash;
+		UInt128 data_size;
 		std::array<uint8_t, 172> _res2;
 		uint32_t checksum;
 	};
@@ -254,8 +254,8 @@ namespace zawa_ch::CDFS
 		uint64_t seq;
 		CDFSFrameTypes frametype;
 		std::array<uint8_t, 4> _res1;
-		UInt128 current;
-		std::array<char, 32> label;
+		UInt128 data_current;
+		std::array<char, 32> data_label;
 		std::array<uint8_t, 188> _res2;
 		uint32_t checksum;
 	};
