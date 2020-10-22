@@ -235,8 +235,8 @@ namespace zawa_ch::CDFS
 		CDFSFrame frame;
 	public:
 		CDFSHEADFrame();
-		CDFSHEADFrame(const CDFSFrame& frame);
-		CDFSHEADFrame(CDFSFrame&& frame);
+		explicit CDFSHEADFrame(const CDFSFrame& frame);
+		explicit CDFSHEADFrame(CDFSFrame&& frame);
 
 		const CDFSFrame& Frame() const;
 		uint64_t& sequence();
@@ -262,8 +262,8 @@ namespace zawa_ch::CDFS
 		CDFSFrame frame;
 	public:
 		CDFSFINFFrame();
-		CDFSFINFFrame(const CDFSFrame& frame);
-		CDFSFINFFrame(CDFSFrame&& frame);
+		explicit CDFSFINFFrame(const CDFSFrame& frame);
+		explicit CDFSFINFFrame(CDFSFrame&& frame);
 
 		const CDFSFrame& Frame() const;
 		uint64_t& sequence();
@@ -287,8 +287,8 @@ namespace zawa_ch::CDFS
 		CDFSFrame frame;
 	public:
 		CDFSDATAFrame();
-		CDFSDATAFrame(const CDFSFrame& frame);
-		CDFSDATAFrame(CDFSFrame&& frame);
+		explicit CDFSDATAFrame(const CDFSFrame& frame);
+		explicit CDFSDATAFrame(CDFSFrame&& frame);
 
 		const CDFSFrame& Frame() const;
 		uint64_t& sequence();
@@ -308,8 +308,8 @@ namespace zawa_ch::CDFS
 		CDFSFrame frame;
 	public:
 		CDFSCONTFrame();
-		CDFSCONTFrame(const CDFSFrame& frame);
-		CDFSCONTFrame(CDFSFrame&& frame);
+		explicit CDFSCONTFrame(const CDFSFrame& frame);
+		explicit CDFSCONTFrame(CDFSFrame&& frame);
 
 		const CDFSFrame& Frame() const;
 		uint64_t& sequence();
