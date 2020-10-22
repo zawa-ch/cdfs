@@ -1,14 +1,17 @@
 #include "cdfs/builder.hpp"
 using namespace zawa_ch::CDFS;
 
-CDFSBuilder::CDFSBuilder() {}
-CDFSBuilder::CDFSBuilder(const std::string& label) : label(label) {}
+CDFSBuilder::CDFSBuilder() : label(), frameindex(), datasize(), wrotehead(), wrotefinf() {}
+CDFSBuilder::CDFSBuilder(const std::string& label) : label(label), frameindex(), datasize(), wrotehead(), wrotefinf() {}
 
+const std::string& CDFSBuilder::Label() const { return label; }
+const UInt128& CDFSBuilder::FrameIndex() const { return frameindex; }
+const UInt128& CDFSBuilder::DataSize() const { return datasize; }
 void CDFSBuilder::WriteHEADFrame(std::ostream& stream) { WriteHEADFrame(stream, frameindex + 1, datasize); }
 void CDFSBuilder::WriteHEADFrame(std::ostream& stream, const UInt128& framecount, const UInt128& datasize)
 {
 	CDFSHEADFrame frame = CDFSHEADFrame();
-	frame.sequence() = uint64_t(frameindex);
+	frame.sequence() = 0U;
 	frame.data_version() = CDFS::FormatVersion;
 	frame.data_count() = framecount;
 	{
@@ -21,10 +24,12 @@ void CDFSBuilder::WriteHEADFrame(std::ostream& stream, const UInt128& framecount
 	frame.data_size() = datasize;
 	frame.Validate();
 	WriteToStream(stream, frame.Frame());
-	++frameindex;
+	wrotehead = true;
+	if ((wrotehead)&&(!wrotefinf)) { ++frameindex; }
 }
 void CDFSBuilder::WriteFINFFrame(std::ostream& stream)
 {
+	if ((!wrotehead)||(wrotefinf)) { return; }
 	CDFSFINFFrame frame = CDFSFINFFrame();
 	frame.sequence() = uint64_t(frameindex);
 	frame.data_count() = frameindex + 1;
@@ -33,20 +38,25 @@ void CDFSBuilder::WriteFINFFrame(std::ostream& stream)
 	frame.data_size() = datasize;
 	frame.Validate();
 	WriteToStream(stream, frame.Frame());
-	++frameindex;
+	wrotefinf = true;
 }
 void CDFSBuilder::WriteDATAFrame(std::ostream& stream, const ContainsType& data, const size_t& size)
 {
+	if ((!wrotehead)||(wrotefinf)) { return; }
 	CDFSDATAFrame frame = CDFSDATAFrame();
 	frame.sequence() = uint64_t(frameindex);
 	frame.data() = data;
 	frame.Validate();
 	WriteToStream(stream, frame.Frame());
-	++frameindex;
-	datasize += size;
+	if ((wrotehead)&&(!wrotefinf))
+	{
+		++frameindex;
+		datasize += size;
+	}
 }
 void CDFSBuilder::WriteCONTFrame(std::ostream& stream)
 {
+	if ((!wrotehead)||(wrotefinf)) { return; }
 	CDFSCONTFrame frame = CDFSCONTFrame();
 	frame.sequence() = uint64_t(frameindex);
 	frame.data_current() = frameindex;
@@ -59,7 +69,7 @@ void CDFSBuilder::WriteCONTFrame(std::ostream& stream)
 	}
 	frame.Validate();
 	WriteToStream(stream, frame.Frame());
-	++frameindex;
+	if ((wrotehead)&&(!wrotefinf)) { ++frameindex; }
 }
 
 void CDFSBuilder::WriteToStream(std::ostream& stream, const CDFSFrame& frame)

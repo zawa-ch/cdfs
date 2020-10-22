@@ -13,10 +13,15 @@ namespace zawa_ch::CDFS
 		std::string label;
 		UInt128 frameindex;
 		UInt128 datasize;
+		bool wrotehead;
+		bool wrotefinf;
 	public:
 		CDFSBuilder();
 		CDFSBuilder(const std::string& label);
 
+		const std::string& Label() const;
+		const UInt128& FrameIndex() const;
+		const UInt128& DataSize() const;
 		void WriteHEADFrame(std::ostream& stream);
 		void WriteHEADFrame(std::ostream& stream, const UInt128& framecount, const UInt128& datasize);
 		void WriteFINFFrame(std::ostream& stream);
