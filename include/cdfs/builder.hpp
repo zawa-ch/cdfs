@@ -24,7 +24,6 @@ namespace zawa_ch::CDFS
 		void WriteCONTFrame(std::ostream& stream);
 
 		static void WriteToStream(std::ostream& stream, const CDFSFrame& frame);
-		static void SetCRC(CDFSFrame& frame);
 	};
 }
 #endif // __cdfs_builder__
