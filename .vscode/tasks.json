@@ -109,6 +109,34 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "build cdfs-example-cdfsloader",
+            "type": "shell",
+            "group": "build",
+            "dependsOn": [
+                "build cdfs"
+            ],
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--target",
+                "cdfs-example-cdfsloader",
+                "--config",
+                "Debug"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

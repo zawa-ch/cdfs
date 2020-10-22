@@ -24,10 +24,14 @@ namespace zawa_ch::CDFS
 
 		bool HasHEAD() const;
 		bool HasFINF() const;
+		const UInt128& FrameIndex() const;
+		const UInt128& FrameCount() const;
+		const UInt128& DataIndex() const;
+		const UInt128& DataSize() const;
 		bool ReadNext(std::istream& stream);
 		bool HasValue() const noexcept;
 		bool IsValidData() const noexcept;
-		std::vector<uint8_t> GetData() const;
+		std::vector<uint8_t> GetData(const size_t& size = 240U) const;
 		const std::optional<CDFSFrame>& GetFrame() const;
 		std::optional<bool> CheckIntegrity() const;
 

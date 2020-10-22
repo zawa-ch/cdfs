@@ -7,6 +7,10 @@ CDFSLoader::CDFSLoader()
 
 bool CDFSLoader::HasHEAD() const { return readhead; }
 bool CDFSLoader::HasFINF() const { return readfinf; }
+const UInt128& CDFSLoader::FrameIndex() const { return frameindex; }
+const UInt128& CDFSLoader::FrameCount() const { return framecount; }
+const UInt128& CDFSLoader::DataIndex() const { return dataindex; }
+const UInt128& CDFSLoader::DataSize() const { return datasize; }
 bool CDFSLoader::ReadNext(std::istream& stream)
 {
 	if (readfinf) { return false; }
@@ -39,6 +43,10 @@ bool CDFSLoader::ReadNext(std::istream& stream)
 		if (datasize == 0) { datasize = finf.data_size(); }
 		readfinf = true;
 	}
+	if ((readhead)&&(!readfinf)&&(CDFSDATAFrame::IsDATAFrame(*buffer)))
+	{
+		dataindex += 240U;
+	}
 	return true;
 }
 bool CDFSLoader::HasValue() const noexcept { return buffer.has_value(); }
@@ -47,13 +55,20 @@ bool CDFSLoader::IsValidData() const noexcept
 	if(!HasValue()) { return false; }
 	return buffer->IsValid()&&VerifySequence(*buffer, uint64_t(frameindex));
 }
-std::vector<uint8_t> CDFSLoader::GetData() const
+std::vector<uint8_t> CDFSLoader::GetData(const size_t& size) const
 {
 	if (!HasValue()) { return std::vector<uint8_t>(); }
 	if (CDFSDATAFrame::IsDATAFrame(*buffer))
 	{
 		auto result = CDFSDATAFrame(*buffer);
-		return std::vector<uint8_t>(result.data().begin(), result.data().end());
+		if ((result.data().cbegin() + size) <= (result.data().cend()))
+		{
+			return std::vector<uint8_t>(result.data().cbegin(), result.data().cbegin() + size);
+		}
+		else
+		{
+			return std::vector<uint8_t>(result.data().cbegin(), result.data().cend());
+		}
 	}
 	return std::vector<uint8_t>();
 }
@@ -66,10 +81,9 @@ std::optional<bool> CDFSLoader::CheckIntegrity() const
 
 std::optional<CDFSFrame> CDFSLoader::ReadFrameFromStream(std::istream& stream)
 {
-	auto sentry = std::istream::sentry(stream);
-	if (bool(sentry))
+	if (stream.good())
 	{
-		CDFSFrame result;
+		auto result = CDFSFrame();
 		stream.read((std::istream::char_type*)&result, sizeof(CDFSFrame));
 		if (stream.gcount() == sizeof(CDFSFrame))
 		{ return result; }
