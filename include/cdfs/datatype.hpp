@@ -2,6 +2,7 @@
 #define __cdfs_datatype__
 #include <limits>
 #include <array>
+#include "checksum.hpp"
 namespace zawa_ch::CDFS
 {
 	struct UInt128 final
@@ -218,45 +219,110 @@ namespace zawa_ch::CDFS
 
 	struct CDFSFrame final
 	{
-		uint64_t seq;
+	public:
+		uint64_t sequence;
 		CDFSFrameTypes frametype;
 		std::array<uint8_t, 240> data;
 		uint32_t checksum;
+
+		void Validate();
+		bool IsValid() const;
 	};
 
 	struct CDFSHEADFrame final
 	{
-		uint64_t seq;
-		CDFSFrameTypes frametype;
-		uint32_t data_formatver;
-		UInt128 data_count;
-		std::array<char, 32> data_label;
-		UInt128 data_size;
-		std::array<uint8_t, 172> _res;
-		uint32_t checksum;
+	private:
+		CDFSFrame frame;
+	public:
+		CDFSHEADFrame();
+		CDFSHEADFrame(const CDFSFrame& frame);
+		CDFSHEADFrame(CDFSFrame&& frame);
+
+		const CDFSFrame& Frame() const;
+		uint64_t& sequence();
+		const uint64_t& sequence() const;
+		uint32_t& data_version();
+		const uint32_t& data_version() const;
+		UInt128& data_count();
+		const UInt128& data_count() const;
+		std::array<char, 32>& data_label();
+		const std::array<char, 32>& data_label() const;
+		UInt128& data_size();
+		const UInt128& data_size() const;
+
+		void Validate();
+		bool IsValid() const;
+
+		static bool IsHEADFrame(const CDFSFrame& frame);
 	};
 
 	struct CDFSFINFFrame final
 	{
-		uint64_t seq;
-		CDFSFrameTypes frametype;
-		std::array<uint8_t, 4> _res1;
-		UInt128 data_count;
-		std::array<uint8_t, 32> data_hash;
-		UInt128 data_size;
-		std::array<uint8_t, 172> _res2;
-		uint32_t checksum;
+	private:
+		CDFSFrame frame;
+	public:
+		CDFSFINFFrame();
+		CDFSFINFFrame(const CDFSFrame& frame);
+		CDFSFINFFrame(CDFSFrame&& frame);
+
+		const CDFSFrame& Frame() const;
+		uint64_t& sequence();
+		const uint64_t& sequence() const;
+		UInt128& data_count();
+		const UInt128& data_count() const;
+		std::array<uint8_t, 32>& data_hash();
+		const std::array<uint8_t, 32>& data_hash() const;
+		UInt128& data_size();
+		const UInt128& data_size() const;
+
+		void Validate();
+		bool IsValid() const;
+
+		static bool IsFINFFrame(const CDFSFrame& frame);
+	};
+
+	struct CDFSDATAFrame final
+	{
+	private:
+		CDFSFrame frame;
+	public:
+		CDFSDATAFrame();
+		CDFSDATAFrame(const CDFSFrame& frame);
+		CDFSDATAFrame(CDFSFrame&& frame);
+
+		const CDFSFrame& Frame() const;
+		uint64_t& sequence();
+		const uint64_t& sequence() const;
+		std::array<uint8_t, 240>& data();
+		const std::array<uint8_t, 240>& data() const;
+
+		void Validate();
+		bool IsValid() const;
+
+		static bool IsDATAFrame(const CDFSFrame& frame);
 	};
 
 	struct CDFSCONTFrame final
 	{
-		uint64_t seq;
-		CDFSFrameTypes frametype;
-		std::array<uint8_t, 4> _res1;
-		UInt128 data_current;
-		std::array<char, 32> data_label;
-		std::array<uint8_t, 188> _res2;
-		uint32_t checksum;
+	private:
+		CDFSFrame frame;
+	public:
+		CDFSCONTFrame();
+		CDFSCONTFrame(const CDFSFrame& frame);
+		CDFSCONTFrame(CDFSFrame&& frame);
+
+		const CDFSFrame& Frame() const;
+		uint64_t& sequence();
+		const uint64_t& sequence() const;
+		UInt128& data_current();
+		const UInt128& data_current() const;
+		std::array<char, 32>& data_label();
+		const std::array<char, 32>& data_label() const;
+
+		void Validate();
+		bool IsValid() const;
+
+		static bool IsCONTFrame(const CDFSFrame& frame);
 	};
 }
 #endif // __cdfs_datatype__
