@@ -38,9 +38,9 @@ int main(int argc, char const *argv[])
 		}
 		auto builder = CDFSBuilder();
 		builder.WriteHEADFrame(dest_stream);
-		CDFSBuilder::ContainsType buffer;
 		while(source_stream.good())
 		{
+			auto buffer = CDFSBuilder::ContainsType();
 			source_stream.read((std::istream::char_type*)buffer.data(), buffer.size());
 			auto readsize = source_stream.gcount();
 			builder.WriteDATAFrame(dest_stream, buffer, size_t(readsize));
