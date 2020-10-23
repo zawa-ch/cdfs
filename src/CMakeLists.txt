@@ -1,3 +1,6 @@
+# zawa-ch/cdfs:/src/CMakeLists
+# Copyright 2020 zawa-ch.
+#
 
 add_library(cdfs
   builder.cpp
