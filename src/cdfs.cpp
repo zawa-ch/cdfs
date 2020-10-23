@@ -1,3 +1,6 @@
+//	zawa-ch/cdfs:/src/cdfs
+//	Copyright 2020 zawa-ch.
+//
 #include "cdfs/cdfs.hpp"
 using namespace zawa_ch::CDFS;
 
@@ -9,5 +12,6 @@ static_assert(sizeof(CDFSCONTFrame) == 256, "CDFSCONTFrameの大きさが256バ�
 
 uint32_t CDFS::GetLibraryVersion() noexcept
 {
+	// TODO: CMakeからバージョン情報を引っ張ってくる
 	return 0x00000100;
 }
