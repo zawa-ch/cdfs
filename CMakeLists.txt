@@ -1,3 +1,6 @@
+# zawa-ch/cdfs:/CMakeLists
+# Copyright 2020 zawa-ch.
+
 cmake_minimum_required(VERSION 3.0.0)
 project(continuous-dataframe-stream VERSION 0.1.0)
 
