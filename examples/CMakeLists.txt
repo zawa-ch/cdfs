@@ -1,3 +1,5 @@
+# zawa-ch/cdfs:/examples/CMakeLists
+# Copyright 2020 zawa-ch.
 
 add_executable(cdfs-example-uint128 uint128.cpp)
 target_link_libraries(cdfs-example-uint128 cdfs)
