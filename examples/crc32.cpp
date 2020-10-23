@@ -1,8 +1,12 @@
+//	zawa-ch/cdfs:/examples/crc32
+//	Copyright 2020 zawa-ch.
+//
 #include <iostream>
 #include <array>
 #include "cdfs/cdfs.hpp"
 using namespace zawa_ch::CDFS;
 
+///	CRCの計算を行うビットストリーム
 const std::array<uint8_t, 256> data =
 {
 	0x00, 0x18, 0x24, 0x3F, 0xFF, 0xC3, 0x21, 0xFF
