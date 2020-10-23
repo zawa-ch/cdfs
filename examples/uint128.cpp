@@ -1,3 +1,6 @@
+//	zawa-ch/cdfs:/examples/uint128
+//	Copyright 2020 zawa-ch.
+//
 #include <iostream>
 #include "cdfs/cdfs.hpp"
 using namespace zawa_ch::CDFS;
