@@ -1,16 +1,23 @@
+//	zawa-ch/cdfs:/src/datatype
+//	Copyright 2020 zawa-ch.
+//
 #include "cdfs/datatype.hpp"
 using namespace zawa_ch::CDFS;
 
 void CDFSFrame::Validate()
 {
+	///	CRC32計算オブジェクト
 	auto calculator = CRC32();
 	calculator.Push((const uint8_t*)this, (const uint8_t*)&checksum);
+	// checksumとして登録
 	checksum = calculator.GetValue();
 }
 bool CDFSFrame::IsValid() const
 {
+	///	CRC32計算オブジェクト
 	auto calculator = CRC32();
 	calculator.Push((const uint8_t*)this, (const uint8_t*)&checksum);
+	// checksumと照合
 	return checksum == calculator.GetValue();
 }
 
@@ -20,10 +27,12 @@ CDFSHEADFrame::CDFSHEADFrame() : frame()
 }
 CDFSHEADFrame::CDFSHEADFrame(const CDFSFrame& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsHEADFrame(this->frame)) { throw std::exception(); }
 }
 CDFSHEADFrame::CDFSHEADFrame(CDFSFrame&& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsHEADFrame(this->frame)) { throw std::exception(); }
 }
 const CDFSFrame& CDFSHEADFrame::Frame() const { return frame; }
@@ -47,10 +56,12 @@ CDFSFINFFrame::CDFSFINFFrame() : frame()
 }
 CDFSFINFFrame::CDFSFINFFrame(const CDFSFrame& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsFINFFrame(this->frame)) { throw std::exception(); }
 }
 CDFSFINFFrame::CDFSFINFFrame(CDFSFrame&& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsFINFFrame(this->frame)) { throw std::exception(); }
 }
 const CDFSFrame& CDFSFINFFrame::Frame() const { return frame; }
@@ -72,10 +83,12 @@ CDFSDATAFrame::CDFSDATAFrame() : frame()
 }
 CDFSDATAFrame::CDFSDATAFrame(const CDFSFrame& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsDATAFrame(this->frame)) { throw std::exception(); }
 }
 CDFSDATAFrame::CDFSDATAFrame(CDFSFrame&& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsDATAFrame(this->frame)) { throw std::exception(); }
 }
 const CDFSFrame& CDFSDATAFrame::Frame() const { return frame; }
@@ -93,10 +106,12 @@ CDFSCONTFrame::CDFSCONTFrame() : frame()
 }
 CDFSCONTFrame::CDFSCONTFrame(const CDFSFrame& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsCONTFrame(this->frame)) { throw std::exception(); }
 }
 CDFSCONTFrame::CDFSCONTFrame(CDFSFrame&& frame) : frame(frame)
 {
+	// TODO: 適切な例外の設定
 	if (!IsCONTFrame(this->frame)) { throw std::exception(); }
 }
 const CDFSFrame& CDFSCONTFrame::Frame() const { return frame; }
