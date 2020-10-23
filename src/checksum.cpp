@@ -1,10 +1,17 @@
+//	zawa-ch/cdfs:/src/checksum
+//	Copyright 2020 zawa-ch.
+//
 #include "cdfs/checksum.hpp"
 using namespace zawa_ch::CDFS;
+
+// TODO: 実装上手くいっていない可能性があるため、実装の再確認と修正
 
 CRC32::Dataset CRC32::data;
 
 CRC32::Dataset::Dataset()
 {
+	// CRC-32 (反転)
+	// x32 + x26 + x23 + x22 + x16 + x12 + x11 + x10 + x8 + x7 + x5 + x4 + x2 + x + 1
 	const uint32_t generator = 0xEDB88320;
 	for(size_t i = 0; i < 256; i++)
 	{
