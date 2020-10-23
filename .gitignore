@@ -1,2 +1,5 @@
+# zawa-ch/cdfs:/.gitignore
+# Copyright 2020 zawa-ch.
 
+# CMake build data
 /build
